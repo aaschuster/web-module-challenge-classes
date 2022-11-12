@@ -44,7 +44,24 @@ class Airplane {
 */
 
 class Person {
-  
+  constructor(name, age) {
+    this.stomach = [];
+    this.name = name;
+    this.age = age;
+  }
+
+  eat(food) {
+    if(this.stomach.length<10) {
+      this.stomach.push(food);
+    }
+  }
+  poop() {
+    this.stomach = [];
+  }
+  toString() {
+    return this.name + ", " + this.age;
+  }
+
 }
 
 /*
@@ -62,6 +79,27 @@ class Person {
 */
 
 class Car {
+  constructor(model, mpg) {
+    this.tank = 0;
+    this.odometer = 0;
+    this.model = model;
+    this.milesPerGallon = mpg;
+  }
+
+  fill(gallons) {
+    this.tank += gallons;
+  }
+
+  drive(distance) {
+    if((distance/this.milesPerGallon)>this.tank) {
+      this.odometer += this.tank * this.milesPerGallon;
+      this.tank = 0;
+      return "I ran out of fuel at " + this.odometer + " miles!"
+    } else {
+      this.odometer += distance;
+      this.tank -= distance/this.milesPerGallon;
+    }
+  }
   
 }
 
@@ -79,6 +117,14 @@ class Car {
 */
 
 class Lambdasian {
+  constructor(obj) {
+    this.name = obj.name;
+    this.age = obj.age;
+    this.location = obj.location;
+  }
+  speak() {
+    return "Hello my name is " + this.name + ", I am from " + this.location;
+  }
   
 }
 
@@ -97,7 +143,19 @@ class Lambdasian {
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
 
-class Instructor {
+class Instructor extends Lambdasian {
+  constructor (obj) {
+    super(obj);
+    this.specialty = obj.specialty;
+    this.favLanguage = obj.favLanguage;
+    this.catchPhrase = obj.catchPhrase;
+  }
+  demo(subject) {
+    return "Today we are learning about " + subject;
+  }
+  grade(student, subject) {
+    return student.name + "receives a perfect score on " + subject;
+  }
 
 }
 
@@ -117,9 +175,24 @@ class Instructor {
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
 
-class Student {
-   
+class Student extends Lambdasian {
+   constructor(obj) {
+    super(obj);
+    this.previousBackground = obj.previousBackground;
+    this.className = obj.className;
+    this.favSubjects = obj.favSubjects;
+   }
+
+   listSubjects() {
+    return this.favSubjects;
+   }
 }
+
+const phil = new Student({
+  favSubjects: ["HTML", "CSS", "JS"]
+});
+
+console.log(phil.listSubjects());
 
 /*
   TASK 6
