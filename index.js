@@ -8,6 +8,8 @@
         + If a plane lands, its `isFlying` property gets set to false.
 */
 
+const { TestWatcher } = require("jest");
+
 // EXAMPLE SOLUTION CODE:
 class Airplane {
   constructor(name) {
@@ -156,6 +158,11 @@ class Instructor extends Lambdasian {
   grade(student, subject) {
     return student.name + "receives a perfect score on " + subject;
   }
+  adjustGrade(student) {
+    student.grade += Math.random()*200-100;
+    if (student.grade<0) student.grade = 0;
+    else if (student.grade>100) student.grade = 100;
+  }
 
 }
 
@@ -181,6 +188,7 @@ class Student extends Lambdasian {
     this.previousBackground = obj.previousBackground;
     this.className = obj.className;
     this.favSubjects = obj.favSubjects;
+    this.grade = obj.grade;
    }
 
    listSubjects() {
@@ -191,6 +199,10 @@ class Student extends Lambdasian {
    }
    sprintChallenge(subject) {
     return this.name + " has begun sprint challenge on " + subject;
+   }
+   graduate() {
+    if (this.grade>=70) return (this.name + " has graduated from BloomTech with a grade of " + this.grade + "!");
+    else return (this.name + " needs to do more work! Their grade is only " + this.grade); 
    }
 }
 
@@ -232,6 +244,21 @@ class ProjectManager extends Instructor {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from BloomTech
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+const billy = new Student({
+  name: "Billy Bob Jr",
+  grade: 50
+});
+
+const mrSmithy = new Instructor({
+  name: "Paco Smithy",
+  age: 456,
+  location: "The Moon"
+});
+
+console.log(billy.graduate());
+mrSmithy.adjustGrade(billy);
+console.log(billy.graduate());
 
 
 //End of Challenge
