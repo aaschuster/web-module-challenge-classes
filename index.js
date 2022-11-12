@@ -186,13 +186,13 @@ class Student extends Lambdasian {
    listSubjects() {
     return this.favSubjects;
    }
+   PRAssignment(subject) {
+    return this.name + " has submitted a PR for " + subject;
+   }
+   sprintChallenge(subject) {
+    return this.name + " has begun sprint challenge on " + subject;
+   }
 }
-
-const phil = new Student({
-  favSubjects: ["HTML", "CSS", "JS"]
-});
-
-console.log(phil.listSubjects());
 
 /*
   TASK 6
@@ -208,8 +208,20 @@ console.log(phil.listSubjects());
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
 
-class ProjectManager {
+class ProjectManager extends Instructor {
+  constructor(obj) {
+    super(obj);
+    this.gradClassName = obj.gradClassName;
+    this.favInstructor = obj.favInstructor;
+  }
+
+  standUp(channel) {
+    return (this.name + " announces to " + channel + ", @channel standy times!");
+  }
    
+  debugsCode(student, subject) {
+    return this.name + " debugs " + student.name + "'s code on " + subject;
+  }
 }
 
 /*
